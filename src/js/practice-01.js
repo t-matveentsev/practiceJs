@@ -185,3 +185,144 @@ switch (value) {
         console.log('Default');
 }
 
+// Тренарний оператор
+
+value > 15 && value < 20 ? true : false
+
+let priceItem;
+priceItem = value > 5 && value < 15 ? 'Yap' : 'try again';
+console.log(priceItem);
+
+
+// облісті видимості 
+
+// спочатку аналізується код та резервується місцу під змінні
+// після чого йде виконанн коду, тому змінну можно використати тільки при вспр=ливанні на гору 
+
+let sumStr = 'Hello';
+
+if (true) {
+    let number = 22;
+    if (true) {
+        console.log(value);
+    }
+    let sumStr = 'Hello'; // змінна не читається тому що зарезервована але ще не ініціалізована 
+}
+
+// Цикл for ---------
+
+let strArray = 'Hello JS';
+for (let i = 0; i < strArray.length; i += 1) {
+    console.log(strArray[i]);
+}
+
+// continue and break
+
+let idx = -1;
+for (let i = 0; i < strArray.length; i += 1) {
+    if (strArray[i] === 'o') {
+        idx = i;
+        break; // якщо перша умова задовільнила, якщо не прописувати break дасть останню задовільну умову
+    }
+}
+console.log(idx);
+
+
+for (let i = 0; i <= 6; i += 1) {
+    if (i % 2 === 0) {
+        console.log('even number', i);
+        continue; // прериває виконання подальшого коду в циклі на переходить на наступну ітерацію 
+    }
+    console.log('odd number' , i);
+}
+
+
+// litle tasks 
+// task 1
+
+// let respond = prompt("What color is the traffic light?");
+
+// if (respond) {
+//     respond = respond.toLowerCase()
+// } else {
+//     alert("The traffic light is not working. Action be careful!!!");
+// }
+
+// if (respond === 'red') {
+//     alert('Red, action stop');
+// } else if(respond === 'yellow') {
+//     alert('Yellow, action ready')
+// } else if (respond === 'green') {
+//     alert('Green, action go')
+// } else {
+//     alert("The traffic light is not working. Action be careful!!!");
+// }
+
+// task 2
+
+// switch (respond) {
+//     case 'red':
+//         alert("Red, action stop");
+//         break;
+//     case 'yellow':
+//         alert("Yellow, action ready");
+//         break;
+//     case 'green':
+//         alert("Green, action go");
+//         break;
+//     default:
+//         alert("The traffic light is not working. Action be careful!!!")
+// }
+
+
+// task 3
+
+// function check(text, answer) {
+//     let message = prompt(text)
+//      if (message) {
+//     message = message.toLowerCase()
+//      }
+//     return message === answer
+// }
+
+// const answer = check('Хоч не літак, а крилатий, без крил не може працювати', 'вітряк')
+// check('Через воду він проходить, але сам з місця вік не сходить', 'міст')
+// console.log(answer);
+
+// task 4
+
+// function getDays(deep) {
+//     const speedOfDay = 7;
+//     const speedOfNight = 2;
+//     let totalDistance = 0;
+//     let totalDays = 0;
+
+//     while (totalDistance < deep) {
+//         totalDistance += speedOfDay;
+//         totalDays += 1;
+
+//         if (totalDistance < deep) {
+//             totalDistance -= speedOfNight
+//         }
+//     }
+//     console.log(totalDays);
+// }
+
+// getDays(17)
+
+
+// task 5
+
+function countVowel(str) {
+    const vowel = "aeiou";
+    let counter = 0;
+    for (let i = 0; i < str.length; i += 1) {
+        if (vowel.includes(str[i].toLowerCase())) {
+            counter += 1
+        }
+    }
+    return counter
+}
+
+console.log(countVowel('Hello world'));
+console.log(countVowel('Junior Web Developer'));
