@@ -203,7 +203,7 @@ moreArg(2, 5)
 moreArg(2, 5, 7, 3, 0, 8)
 
 
-// останній прийшов, останній пішов LIFO
+// останній прийшов, останній пішов LIFO (Last-in-First-out)
 
 function logiItem(valA, valB) {
   const result = gettSum(valA, valB)
