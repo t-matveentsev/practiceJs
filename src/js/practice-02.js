@@ -186,3 +186,154 @@ console.log(createStr(["Peter"]));
 console.log(createStr(["Jacob", "Alex"]));
 console.log(createStr(["Max", "John", "Mark"]));
 console.log(createStr(["Alex", "Jacob", "Mark", "Max", "Jacob", "Mark", "Max"]));
+
+
+// псевдомасив arguments
+
+
+function moreArg() {
+  let sum = 0;
+  for (const arg of arguments) {
+    sum += arg
+  }
+  console.log(sum);
+}
+
+moreArg(2, 5)
+moreArg(2, 5, 7, 3, 0, 8)
+
+
+// останній прийшов, останній пішов LIFO
+
+function logiItem(valA, valB) {
+  const result = gettSum(valA, valB)
+  const message = `Result is ${result}`
+  console.log(message);
+}
+
+function gettSum(a, b) {
+  return a + b
+}
+
+
+logiItem(5, 7)
+
+// litle tasks
+
+// task 1
+
+// створи функці. яка буде перевіряти чи кожен елемент масиву більше ніж вказане значення. Функція приймає два параметри.
+// 1 - масив чисел
+// 2 - Число яке потрібно порівнювати з усіма елементами масиву
+// Функція повертає повідомлення про успішну перевірку повідомлення succes or fail
+
+const nummbers = [25, 12, 67, 40, 18];
+
+// function checkValue(arr, target) {
+//   let message = 'Success';
+
+//   for (const num of arr) {
+//     if (target > num) {
+//       message = 'Fail';
+//       }
+//   }
+//   return message
+// }
+
+// console.log(checkValue(nummbers, 10));
+// console.log(checkValue(nummbers, 13));
+
+function checkValue(arr, target) { // Патерн раннього повернення
+  for (const num of arr) {
+    if (target > num) {
+      return "Fail"
+    }
+  }
+  return 'Success'
+}
+
+console.log(checkValue(nummbers, 10));
+console.log(checkValue(nummbers, 13));
+
+
+// Task 2
+
+// Створи функцію яка буде розбивати початковий масив на потрібну кількість елементів розділяючи на декілька масивів. Функція приймає два параметри:
+// 1 - масив значень 
+// 2 - потрібну кількість елементів в масиві
+// функція повертає масив масивів 
+
+const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+function getCombinathion(arr, value) {
+  const result = [];
+  for (let i = 0; i < arr.length; i += value) {
+    result.push(arr.slice(i, i + value));
+  }
+  return result
+}
+
+console.log(getCombinathion(data, 2));
+console.log(getCombinathion(data, 4));
+
+
+// task 3
+
+// Напиши функцію getRectArea(demensions) для обчислення площі прямокутника зі сторонами. значення яких будуть передані до параметра dimensions у вигляді рядка. Значення гарантовано роздідені пробілом
+
+function getRectArea(dimentions) {
+  const arr = dimentions.split(' ') // мутуємо рядок у масив для отримання доступу за індексом, ділимо елементи за ' ' пробілом
+  const firstValue = Number(arr[0]);
+  const secondValue = Number(arr[1]);
+  return firstValue * secondValue
+}
+
+console.log(getRectArea('8 11'));
+console.log(getRectArea('17 10'));
+
+
+// task 4
+
+// Напиши функцію для роботи з колекціє. навчальниї курсів courses:
+// addCourse(name) - додає курс до кінця колекції
+// removeCourse(name) - видаляє курс із колекції
+// updateCourse(oldName, newName) - змінює імʼя на нове 
+
+const courses = ['HTML', 'CSS', 'JS', 'React', 'PostgreSQL'];
+
+function addCourse(name) {
+  if (courses.includes(name)) {
+    return 'Ви вже маєте такий курс'
+  } else {
+    courses.push(name)
+  }
+  return courses
+}
+
+console.log(addCourse("Express"));
+
+function removeCourse(name) {         // bitwise NOT (~) перебір масиву по індексу, для перевірку чи є елемент 
+  const idx = courses.indexOf(name)
+  //  ~ = -(x + 1)
+  // -1 => true => 0 => false
+  // 0 => false => -1 true
+  if (!~idx) { // idx === -1
+    return 'Данного курсу немає у вашому списку'
+  } else {
+    courses.splice(idx, 1)
+  }
+  return courses
+}
+console.log(removeCourse('HTML'));
+
+
+function updateCourse(oldName, newName) {
+  const idx = courses.indexOf(oldName)
+  if (~idx) {
+    courses[idx] = newName
+    return courses
+  }
+  return 'Курс з данною назвою не знайдено'
+}
+
+console.log(updateCourse('Express', 'NestJS'));
