@@ -72,6 +72,202 @@ secondHuman.sayHello();
 
 // Cycle for...in
 
+const copyObject = Object.create(firstHuman) // скопійоманий обʼєкт завжди пустий, але при обробці він посилається на основний обʼєкт і вспатковує властивості від нього
+console.log(copyObject);
+
 for (const key in secondHuman) { // Змінна завжди key перебераємо завжди ключі обʼєкта 
-    console.log(key, firstHuman[key]);
+  if (user.hasOwnProperty(key)) {   // метод повертає true or false в залежності від того чи ключь вспадкований, таким чином перебираемо тільки власні ключі
+    console.log(key, secondHuman[key]);  // немає вспадкованої функції
+  }
 }
+
+// method Object.keys()
+
+// перетворення обʼєкта в масив за допомогою глобального метода Object.keys() повертає лише власні ключі
+
+const keys = Object.keys(user)
+console.log(keys);
+
+for (const key of keys) {        // перебираємо ключі (тільки власні)
+  console.log(key, user[key]);
+}
+
+
+// method Object.values()
+
+const values = Object.values(user)
+console.log(values);
+
+
+// method Object.entries() повертає масив [[key, values],[key, values]]
+
+const entries = Object.entries(user);
+console.log(entries);
+
+
+// little tasks
+
+// Task 1
+// Створи функцію яка буде приямати 3 параметри та формувати обʼєкт покупки
+// 1 - назва продукту
+// 2 - кількість одиниць
+// 3 - ціна за 1 одиницю товару
+// функці моє повертати сформований обʼєкт з ключами name, price, quantity, totalPrice
+
+function createBasket(product, quantity, price) {
+  const totalPrice = quantity * price;
+
+  return {
+    product,
+    quantity,
+    price,
+    totalPrice
+  }
+
+  // const basket = {
+  //   product, // product(argument) : 'pizza'(values of this argument)
+  //   quantity,
+  //   price,
+  //   totalPrice
+  // }
+  // return basket
+}
+
+console.log(createBasket('pizza', 3, 120));
+console.log(createBasket("apple", 35, 70));
+
+// Task 2
+
+// Створи функцію для введення статистики компʼютерного клубу. Функція приймає 1 параметр це обʼєкт користувачів де клюс це імʼя користувача, а значення цу час оренди у хвилинах
+// Функція повертає рядок з інформацією про те скільки було користувачів та який середній час оренди компʼютера
+
+const players = {  // коли однотипний тип данних ми можемо використати метод Object.values()
+  Den: 60,
+  Kate: 130,
+  William: 45,
+  Matthew: 120,
+  Ethan: 40,
+  David: 55
+}
+
+function getAvarageTime(obj) {
+  const values = Object.values(obj)
+  let total = 0;
+  for (const value of values) {
+    total += value
+  }
+  return `Count of players ${values.length}, average time ${total/values.length}`
+}
+
+console.log(getAvarageTime(players));
+
+// Task 3
+
+// Створи функцію яка буде приймати 2 параметри
+// 1 - параметр масив
+// 2 - параметр назва книги
+// Функція повертає Імена юхерів(формат string) в яких є данна книга 
+// поорахувати вік всіх юзерів у яких є ключ age
+
+const friends = [
+  { name: "Anna", books: ["Bible", "Harry Potter"], age: 21 },
+  { name: "Bob", books: ["War-and peace", "Romeo and Juliet"], age: 26 },
+  { name: "Alice", books: ["War and peace", "Romeo and Juliet"] },
+  { name: "Oleksii", books: ["Bible", "War and peace", "Harry Potter", "Romeo and Juliet"], age: 26 }
+]
+
+function getUsers(arr, book) {
+  let userNames = [];
+  for (const user of arr) {
+    if (user.books.includes(book)) {
+      userNames.push(user.name)
+    }
+  }
+  return userNames.join(', ')
+}
+
+console.log(getUsers(friends, 'Harry Potter'));
+
+function getTotalAge(arr) {
+  let totalAge = 0;
+  for (const user of arr) {
+    if ('age' in user) {  // оператор in перевіряє власні та вспадковані ключі
+      console.log(`${user.name} - ${user.age}`);
+      totalAge += user.age
+    }
+    // if (user.hasOwnProperty('age')) { // оператор hasOwnProperty перевіряє тільки власні ключі
+    //   totalAge += user.age
+    // }
+    // if (user.age !== undefined) {
+    //   totalAge += user.age
+    // }
+    
+  }
+  return `Total age of all users ${totalAge}`
+}
+
+console.log(getTotalAge(friends));
+
+// Task 4
+
+// 1 - Створи метод обʼєкту який буде приямати 1 параметр назву факультету та повертати список імен учнів факультету
+// 2 - Створи метод обʼєкту який буде прияймати 1 параметр назву факультету та повертати кількість очків факультету 
+
+const hogvarts = {
+  griffindor: [
+    {
+      name: "Harry",
+      points: 17
+    },
+    {
+      name: "Hermiona",
+      points: 19 
+    },
+    {
+      name: "Ron",
+      points: 17
+    }
+  ],
+  slizerin: [
+    {
+      name: "Drako",
+      points: 17
+    },
+    {
+      name: "Goyl",
+      points: 14
+    },
+    {
+      name: "Crabbe",
+      points: 5
+    }
+  ],
+  getUserList(faculty) {
+    if (!(faculty in this)) {
+      return 'Faculty not found 😢'
+    }
+    const students = [];
+    for (const student of this[faculty]) {
+      students.push(student.name)
+    }
+    return students.join(', ')
+  },
+  getTotalPoints(faculty) {
+    if (!(faculty in this)) {
+      return "Faculty not found 😢";
+    }
+    let totalPoints = 0;
+    for (const student of this[faculty]) {
+      if ('points' in student) {
+        totalPoints += student.points;
+      }
+    }
+    return `Total points of ${faculty} - ${totalPoints}`;
+  }
+};
+
+console.log(hogvarts.getUserList("griffindor"));
+console.log(hogvarts.getUserList("slitherin"));
+
+console.log(hogvarts.getTotalPoints('griffindor'));
+console.log(hogvarts.getTotalPoints('slitherin'));
