@@ -271,3 +271,74 @@ console.log(hogvarts.getUserList("slitherin"));
 
 console.log(hogvarts.getTotalPoints('griffindor'));
 console.log(hogvarts.getTotalPoints('slitherin'));
+
+
+
+// деструктуризація масиву
+
+const array = [1, 4, 6, 8, 9]
+// const first = array[0]
+// const second = array[2]
+// console.log(first);
+// console.log(second);
+
+const [first, , , second] = array; // Деструктуризація масива, отримання значення з масива за послідовністью
+console.log(first);
+console.log(second);
+  
+
+// деструктуризація обʼєктів 
+
+const userDes = {
+  name: 'Destractor',
+  skills: {
+    html: true,
+    css: false,
+    js: true
+  }
+}
+
+console.log(userDes.skills.html);
+
+const {skills, skills : {html}} = userDes
+console.log('object', skills);
+console.log('html', html);
+
+const css = 'i don`t know'
+const { skills: { css: cssLanguage } } = userDes // зміна назви змінної під час деструктуризації
+console.log(css);
+console.log(cssLanguage);
+
+// практично застосовуєтсья
+
+function getUserName({name, skills : {html, css, js}} = {}) {  // фігурні дужки дефолтне значення, хороший тон
+  console.log(`Hello my name is ${name}, i now html - ${html}, css - ${css}, js - ${js}`);
+}
+
+getUserName(userDes)
+
+const users = [{ name: 'Artem' }, { name: 'Kate' }, { name: 'Mark' }];
+
+const names = [];
+for (const user of users) {
+  names.push(user.name)
+}
+for (const { name } of users) {
+  names.push(name)
+}
+
+console.log(names);
+
+
+//  оператори ...rest and ..spread
+
+// для того щоб створити копію складних типів даних ми можемо використати оператор ...rest
+
+const arr1 = [1, 2, 3, 4]
+const arr2 = [...arr1]
+arr1.splice(0, 1);
+console.log('arr1', arr1);
+console.log('arr2', arr2);
+console.log(arr1 === arr2);
+
+
