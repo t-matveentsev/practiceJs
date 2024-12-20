@@ -317,7 +317,7 @@ function getUserName({name, skills : {html, css, js}} = {}) {  // фігурні
 
 getUserName(userDes)
 
-const users = [{ name: 'Artem' }, { name: 'Kate' }, { name: 'Mark' }];
+const users = [{ name: 'Artem' }, { name: 'Diana' }, { name: 'Mark' }];
 
 const names = [];
 for (const user of users) {
@@ -332,13 +332,37 @@ console.log(names);
 
 //  оператори ...rest and ..spread
 
-// для того щоб створити копію складних типів даних ми можемо використати оператор ...rest
+// для того щоб створити копію складних типів даних ми можемо використати оператор ...spread
 
 const arr1 = [1, 2, 3, 4]
-const arr2 = [...arr1]
+const arr2 = [...arr1]  // операція spread відбувається роспилення 
 arr1.splice(0, 1);
 console.log('arr1', arr1);
 console.log('arr2', arr2);
 console.log(arr1 === arr2);
 
+// оператор ...rest
+
+const arr3 = [4, 5, 8, 3, 5];
+const [one, ...args] = arr3;
+
+console.log(one);
+console.log(args);
+console.log('arr', arr3);
+
+
+function propsRe(...props) { // rest, завжди під час оголошення параметрів
+
+}
+
+propsRe(...arr3) // spread, під час передачі аргументів
+
+
+function example(first, second, third) {
+  console.log('first', first);
+  console.log('second', second);
+  console.log("third", third);
+}
+
+example(...arr3) // example(4, 5, 8) розпидення масива за допомогою оператора ...rest
 
