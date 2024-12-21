@@ -366,3 +366,140 @@ function example(first, second, third) {
 
 example(...arr3) // example(4, 5, 8) розпидення масива за допомогою оператора ...rest
 
+// Tasks 
+
+//Task 1 - деструктуризація. Патерн обʼєкт параментрів
+// Зроби рефакторинг функції так, щоб вона приймала один обʼєкт параметрів замість набору незалежних аргументів
+
+function calcBMI({weight, height}) {
+  const numericWeight = Number(weight.replace(',', '.'));
+  const numericHeight = Number(height.replace(',', '.'));
+  return Number((numericWeight / numericHeight ** 2).toFixed(1))
+}
+
+// console.log(calcBMI('88,3', '1.75'));
+// console.log(calcBMI('68,3', '1.65'));
+// console.log(calcBMI('118,3', '1.95'));
+console.log(calcBMI({
+  weight: '118,3',
+  height: '1.95'
+}));
+
+
+// Task 2 - operation spread
+// Напиши функцію createContact(partialContact) так, щоб вона повертала новий обʼєкт контакту з доданими властивостями id та createdAt, а також list за значенням default якщо в partialContact немає такої властивості
+
+function createContact(partialContact){
+  console.log(partialContact);
+  return {
+    id: generateId(),
+    createdAt: new Date(),
+    list: 'default',
+    ...partialContact
+  }
+}
+
+console.log(createContact({
+  name: "Mango",
+  email: 'mango@mail.com',
+  list: 'friends'
+}));
+
+console.log(createContact({
+  name: "Poly",
+  email: 'poly@hotmail.com'
+}));
+
+function generateId() {
+  return '_' + Math.random().toString(36).substr(2, 9)
+}
+
+//Task 3
+// Напиши функцію transformUserName(user) такб щоб вона повертала новий обʼєкт із властивістью fullName, замість firstName та lastName.
+
+function transformUserName({ firstName, lastName, ...props }) {
+  return {
+    fullName: `${firstName} ${lastName}`,
+    ...props
+  }
+}
+
+function oldTransformUserName(obj) {
+  const changeKeys = ['firstName', 'lastName'];
+  const keys = Object.keys(obj);
+  const result = {
+    fullName: `${obj.firstName} ${obj.lastName}`
+  };
+
+  for (const key of keys) {
+    if (!changeKeys.includes(key)) {
+      result[key] = obj[key]
+    }
+  }
+  return result
+}
+
+console.log(
+  oldTransformUserName({
+    id: 1,
+    firstName: "Jacob",
+    lastName: "Mercer",
+    email: "j.mercer@mail.com",
+    friendCount: 40,
+  })
+);
+
+console.log(
+  oldTransformUserName({
+    id: 1,
+    firstName: "Adrian",
+    lastName: "Cross",
+    email: "a.cross@hotmail.com",
+    friendCount: 20,
+  })
+);
+
+console.log(transformUserName({
+  id: 1,
+  firstName: 'Jacob',
+  lastName: 'Mercer',
+  email: 'j.mercer@mail.com',
+  friendCount: 40
+}));
+
+console.log(transformUserName({
+  id: 1,
+  firstName: 'Adrian',
+  lastName: 'Cross',
+  email: 'a.cross@hotmail.com',
+  friendCount: 20
+}));
+
+// Task 4 destruction
+// Напиши функцію так, щоб вона приймала обʼєкт параметрів із властивостями companyName та stock та виводила репорт про кількість товарів на складі будь-якої компанії.
+
+function getStockReport({ companyName, stock }) {
+  const values = Object.values(stock)
+  let total = 0;
+  for (const value of values) {
+    total += value
+  }
+  return `${companyName} has ${total} item in stock`
+}
+
+console.log(getStockReport({
+  companyName: 'Cyberdyne Systems',
+  stock: {
+    repairBots: 150,
+    defenceBots: 50
+  }
+}));
+
+console.log(getStockReport({
+  companyName: 'Belacci',
+  stock: {
+    shoes: 20,
+    skirts: 10,
+    hats: 5
+  }
+}));
