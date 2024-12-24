@@ -179,14 +179,12 @@ function handleError(productId) {
   console.log(`Error! product with id:${productId} not found`);
 }
 
-
-
 const users = [
-  { id: 1, name: 'John', age: 28, skills: ['JavaScript', 'HTML', 'CSS'] },
-  { id: 2, name: 'Alice', age: 32, skills: ['Python', 'Data Analysis'] },
-  { id: 3, name: 'Bob', age: 24, skills: ['JavaScript', 'React', 'Node.js'] },
-  { id: 4, name: 'Emily', age: 40, skills: ['Java', 'Spring'] },
-  { id: 5, name: 'Davis', age: 22, skills: ['C++', 'C#'] },
+  { id: 1, name: "John", age: 28, skills: ["JavaScript", "HTML", "CSS"] },
+  { id: 2, name: "Alice", age: 32, skills: ["Python", "Data Analysis"] },
+  { id: 3, name: "Bob", age: 24, skills: ["JavaScript", "React", "Node.js"] },
+  { id: 4, name: "Emily", age: 40, skills: ["Java", "Spring"] },
+  { id: 5, name: "Davis", age: 22, skills: ["C++", "C#"] },
 ];
 
 // method map метод перебираючий масив, повертає новий масив такоїж довжини. Для його роботи потрібна тільки callback function
@@ -195,82 +193,77 @@ const names = users.map(({ name }, idx, arr) => name); // працює з дес
 console.log(names);
 
 function customMap(arr) {
-  const result = []
+  const result = [];
   for (let i = 0; i < arr.length; i += 1) {
-    result.push(arr[i].name)
+    result.push(arr[i].name);
   }
   return result;
-};
+}
 
 console.log(customMap(users));
 
-
 // method flatMap метод який дозволяє увійти на одну вкладеність та отримати данні, повертає так само масив данних
 
-const skills = users.flatMap(({ skills }) => skills) // є також method flat(deep)
+const skills = users.flatMap(({ skills }) => skills); // є також method flat(deep)
 console.log(skills);
 
 // фільтрація повторення за довомогою indexOf на результаті виконання flatMap
 
 const uniqueSkills = skills.filter((skill, idx, arr) => {
-  return arr.indexOf(skill) === idx
+  return arr.indexOf(skill) === idx;
 });
 console.log(uniqueSkills);
 
-
 // method filter (часто використовуємий метод), сортування за умовою, повертає обʼєкт який задовільняє умову
 
-const ageUser = users.filter(({ age }, idx, arr) => age > 30).map(({ name }) => name); // лише перший параметр обовʼязковий 
+const ageUser = users
+  .filter(({ age }, idx, arr) => age > 30)
+  .map(({ name }) => name); // лише перший параметр обовʼязковий
 console.log(ageUser);
-
 
 // method find метод який шукає перший елемент який задовільняє умову
 
-const searchSkill = users.find(({ skills }) => skills.includes('JavaScript'));
+const searchSkill = users.find(({ skills }) => skills.includes("JavaScript"));
 console.log(searchSkill);
-
 
 // method findIndex подібний метод до indexOf але працює не з примітивами а з складним  типом данних, перериває пошук після першого елементу який задовільняє умову або повертає -1
 
-const index = users.findIndex(({ id }) => id === 3); // можна знайти індекс елементу який треба видалити 
+const index = users.findIndex(({ id }) => id === 3); // можна знайти індекс елементу який треба видалити
 console.log(index);
 
 // some працює подібно до методу includes, але вміє працювати з складним типом данних повертає true або false
 
-const isKnow = users.some(({ skills }, idx, arr) => skills.includes('Python'));
+const isKnow = users.some(({ skills }, idx, arr) => skills.includes("Python"));
 console.log(isKnow);
-
 
 // every перевіряє щоб усі елементи ітеруємого обʼєкта задовільнив умову, повертае true or false
 
 const oldAge = users.every(({ age }) => age > 20 && age < 50);
 console.log(oldAge);
 
+// method sort метод який мутує початковий масив
 
-// method sort метод який мутує початковий масив 
-
-const sortUsers = [...users].sort((a, b) => a.age - b.age) // a - поточний елемент ітерації, b - натсупний елемент ітерації // за допомогою spred можна не мутуючи оригінал використати метод на копії
+const sortUsers = [...users].sort((a, b) => a.age - b.age); // a - поточний елемент ітерації, b - натсупний елемент ітерації // за допомогою spred можна не мутуючи оригінал використати метод на копії
 console.log(users);
 console.log(sortUsers);
 
-const sortName = [...users].sort((a, b) => a.name.localeCompare(b.name)) // сортування за допомогою localCompare рядків за алфавітним порядком
+const sortName = [...users].sort((a, b) => a.name.localeCompare(b.name)); // сортування за допомогою localCompare рядків за алфавітним порядком
 console.log(sortName);
 
+// method reduce універсальний метод
 
-// method reduce універсальний метод 
-
-const totalAge = users.reduce((acc, { age }, idx, arr) => {  // перші два параметри обовʼязкові
-  acc += age
-  return acc
-}, 0); 
+const totalAge = users.reduce((acc, { age }, idx, arr) => {
+  // перші два параметри обовʼязкові
+  acc += age;
+  return acc;
+}, 0);
 console.log(totalAge);
 
 const allName = users.reduce((acc, { name }) => {
   acc.push(name);
-  return acc
-}, [])
+  return acc;
+}, []);
 console.log(allName);
-
 
 // Tasks
 
@@ -278,34 +271,35 @@ console.log(allName);
 // Напишіть функцію, яка використовує метод mар, щоб створити новий масив обʼєктів, в якому буде - інформація про середній бал кожного студента.
 
 const students = [
-  {name:  'John', grades: [80, 85, 90] },
-  {name:  'Alice', grades: [90, 95, 92] },
-  {name: 'Bob', grades:  [70, 80, 75] },
-  { name: 'Emily', grades: [95, 92, 88] },
-  { name: 'David', grades: [85, 88, 90] }
+  { name: "John", grades: [80, 85, 90] },
+  { name: "Alice", grades: [90, 95, 92] },
+  { name: "Bob", grades: [70, 80, 75] },
+  { name: "Emily", grades: [95, 92, 88] },
+  { name: "David", grades: [85, 88, 90] },
 ];
 
 function getAverage(arr) {
   return arr.map(({ name, grades }) => {
-    const total = grades.reduce((acc, item) => acc + item, 0)
+    const total = grades.reduce((acc, item) => acc + item, 0);
     const obj = {
       name,
       averge: Math.round(total / grades.length),
     };
-    return obj
-  })
+    return obj;
+  });
 }
 console.log(getAverage(students));
+
 
 // Task 2
 // Напишіть функцію, яка використовує метод filter, щоб створити новий масив, в якому будуть тільки студенти які старше 20 років
 
-const students2= [
-  { name: 'John', age: 20, gpa: 3.8 },
-  { name: 'Alice', age: 21, gpa: 3.2 },
-  { name: 'Bob', age: 19, gpa: 3.5 },
-  { name: 'Emily', age: 22, gpa: 3.9 },
-  { name: 'David', age: 20, gpa: 3.7 }
+const students2 = [
+  { name: "John", age: 20, gpa: 3.8 },
+  { name: "Alice", age: 21, gpa: 3.2 },
+  { name: "Bob", age: 19, gpa: 3.5 },
+  { name: "Emily", age: 22, gpa: 3.9 },
+  { name: "David", age: 20, gpa: 3.7 },
 ];
 
 function getAdult(arr) {
@@ -313,18 +307,40 @@ function getAdult(arr) {
 }
 console.log(getAdult(students2));
 
+
 // Task 3
 // Напишіть функцію, яка - використовує метод find, щоб знайти книжку за її назвою (title)
 
 const books = [
-  { title: 'JavaScript:  The Good Parts', author: 'Douglas Crockford', year: 2008 },
-  { title: 'Clean Code:  A Handbook of Agile Software Craftsmanship', author: 'Robert C. Martin', year: 2008 },
-  { title: 'The Pragmatic Programmer:  Your Journey to Mastery', author: 'Andrew Hunt, David Thomas' , year: 1999 },
-  { title: 'Design Patterns: Elements of Reusable Object-Oriented Software', author:  'Erich Gamma, RichardHelm, Ralph Johnson, John Vlissides', year: 1994 },
-  { title: 'Refactoring: Improving the Design of Existing Code', author: 'Martin Fowler', year: 1999 }];
+  {
+    title: "JavaScript:  The Good Parts",
+    author: "Douglas Crockford",
+    year: 2008,
+  },
+  {
+    title: "Clean Code:  A Handbook of Agile Software Craftsmanship",
+    author: "Robert C. Martin",
+    year: 2008,
+  },
+  {
+    title: "The Pragmatic Programmer:  Your Journey to Mastery",
+    author: "Andrew Hunt, David Thomas",
+    year: 1999,
+  },
+  {
+    title: "Design Patterns: Elements of Reusable Object-Oriented Software",
+    author: "Erich Gamma, RichardHelm, Ralph Johnson, John Vlissides",
+    year: 1994,
+  },
+  {
+    title: "Refactoring: Improving the Design of Existing Code",
+    author: "Martin Fowler",
+    year: 1999,
+  },
+];
 
 function getBook(arr, title) {
-  return arr.find(({title : bookTitle}) => bookTitle === title) || 'Not found'
+  return arr.find(({ title: bookTitle }) => bookTitle === title) || "Not found";
 }
 console.log(
   getBook(
@@ -333,5 +349,76 @@ console.log(
   )
 );
 
+
 // Task 4
-//
+// Напишіть функцію, яка використовує метод reduce, щоб обчислити загальну вартість всіх товарів у масиві, яка розраховується як добуток ціни товару на його кількість, а потім сумується з іншими товарами. Результат повинен бути загальною вартістю всіх товарів.
+
+const products2 = [
+  { id: 1, name: "T-shirt", price: 20, quantity: 3 },
+  { id: 2, name: "Jeans", price: 50, quantity: 2 },
+  { id: 3, name: "Sneakers", price: 80, quantity: 1 },
+  { id: 4, name: "Hat", price: 15, quantity: 4 },
+  { id: 5, name: "Socks", price: 5, quantity: 6 },
+];
+
+function getTotal(arr) {
+  // const total = arr.reduce((acc, product) => {
+  //   acc += product.price * product.quantity
+  //   return acc
+  // }, 0);
+  // return total
+  return arr.reduce((acc, {price, quantity}) => acc += price * quantity, 0);
+}
+console.log(getTotal(products2));
+
+
+// Task 5
+// Напишіть функцію, яка використовує метод sort, щоб відсортувати книжки за роком - видання у спадаючому порядку. Результат• повинен бути відсортованим масивом книжок за - роком видання.
+
+const books2 = [
+  { title: 'JavaScript: The Good Parts', author: 'Douglas Crockford', year: 2008 },
+  { title: 'Clean Code: A Handbook of Agile Software Craftsmanship', author: 'Robert Martin', year: 2009 },
+  { title: 'The Pragmatic Programmer: Your Journey to Mastery', author: 'Andrew Hunt, David Thomas', year: 1999 },
+  { title: 'Design Patterns: Elements of Reusable Object-Oriented Software', author: 'Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides', year: 1994 },
+  { title: 'Refactoring: Improving the Design of Existing Code', author: 'Martin Fowler', year: 1999 } 
+];
+
+function bookSort (arr) {
+  return [...arr].sort((a, b) => b.year - a.year)
+    // .map(({ author, year }) => ({ author, year }));
+}
+console.log(bookSort(books2));
+
+// Task 6
+// Напишіть функцію, яка використовує перебираючі методи масиву тар та filter, щоб отримати масив назв продуктів, ціна яких менше 2 доларів та відсортуй їх за алфавітним порядком.
+
+const products3 = [
+  { id: 1, name: 'Apple', price: 1.99 },
+  { id: 2, name: 'Banana', price: 0.99 },
+  { id: 3, name: 'Orange', price: 2.49 },
+  { id: 4, name: 'Grapes', price: 3.99 },
+];
+
+
+function getProducts (arr) {
+  return arr.filter(({ price }) => price < 2)
+    .map(({ name }) => name)
+    .sort((a, b) => a.localeCompare(b));
+}
+
+console.log(getProducts(products3));
+
+// Task 7
+// € рядок в якому довільна кількість літер, гарантовано в рядку немає пробілів та розділових знаків, потрібно повернути обʼєкт де кожна літера буде ключем, а кількість разів яку вона дублюється буде - значенням - ключа (interview)
+
+const str = 'adafehfwsnfakjsbvlkbav';
+const obj = str.split('') // розбиваємо рядок на масив
+  .reduce((acc, item) => {
+    if (acc.hasOwnProperty(item)) { // чи є такий ключ true or false
+      acc[item] += 1 // якщо є збільшуємо його на 1
+    } else {
+      acc[item] = 1 // якщо немає ключа потравляємо у false та створюємо
+    }
+    return acc
+  }, {})
+console.log(obj);
